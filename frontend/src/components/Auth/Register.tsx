@@ -20,7 +20,7 @@ const Register: React.FC = () => {
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
-			await axios.post('http://localhost:8000/register', {pseudo, email, password, password_confirmation});
+			await axios.post('http://backend:8000/register', {pseudo, email, password, password_confirmation});
 			setSuccess('Registration successful! Redirecting...');
 			setTimeout(() => navigate('/login'), 2000); // Redirect after 2 seconds
 		} catch (error: any) {

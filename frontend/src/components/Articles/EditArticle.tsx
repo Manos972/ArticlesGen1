@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://backend:8000';
 
 const EditArticle: React.FC = () => {
 	const {id} = useParams<{ id: string }>();

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www
+    depends_on:
+      - db
+    networks:
+      - articles
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - articles
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    networks:
+      - articles
+  test:
+    image: alpine
+    depends_on:
+      - backend
+      - frontend
+    entrypoint: [ "/bin/sh", "-c", "apk add --no-cache iputils && ping -c 4 backend && ping -c 4 frontend" ]
+    networks:
+      - articles
+networks:
+  articles:
+    driver: bridge

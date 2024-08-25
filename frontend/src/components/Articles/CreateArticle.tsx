@@ -25,7 +25,7 @@ const CreateArticle = () => {
 		}
 
 		try {
-			const response = await axios.post('http://localhost:8000/articles', {
+			const response = await axios.post('http://backend:8000/articles', {
 				title,
 				content,
 			}, {

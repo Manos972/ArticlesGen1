@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Link, useNavigate} from 'react-router-dom';
-import {Modal, Button, Alert} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
+import {Alert, Button, Modal} from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
 import useAuth from "../Hook/useAuth";
 
@@ -11,7 +11,7 @@ interface Article {
 	content: string;
 }
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://backend:8000';
 
 const ArticleList: React.FC = () => {
 	const [articles, setArticles] = useState<Article[]>([]);

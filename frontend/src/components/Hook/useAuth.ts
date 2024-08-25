@@ -1,5 +1,5 @@
 // src/hooks/useAuth.ts
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const useAuth = () => {
@@ -10,7 +10,7 @@ const useAuth = () => {
 		// Vérifiez si le token est présent
 		const token = localStorage.getItem('token');
 		if (token) {
-			axios.get('http://localhost:8000/user', {
+			axios.get('http://backend:8000/user', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -25,7 +25,7 @@ const useAuth = () => {
 
 	const login = async (email: string, password: string) => {
 		try {
-			const response = await axios.post('http://localhost:8000/login', {email, password});
+			const response = await axios.post('http://backend:8000/login', {email, password});
 			localStorage.setItem('token', response.data.token);
 			setIsAuthenticated(true);
 		} catch (error) {
@@ -34,7 +34,7 @@ const useAuth = () => {
 	};
 
 	const logout = () => {
-		axios.post('http://localhost:8000/logout', {}, {
+		axios.post('http://backend:8000/logout', {}, {
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			},

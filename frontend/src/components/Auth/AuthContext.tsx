@@ -1,5 +1,5 @@
 // src/components/AuthContext.tsx
-import React, {createContext, useState, useContext, ReactNode, useEffect} from 'react';
+import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 
 interface AuthContextType {
@@ -18,7 +18,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({children}) => {
 	useEffect(() => {
 		const token = localStorage.getItem('token');
 		if (token) {
-			axios.get('http://localhost:8000/user', {
+			axios.get('http://backend:8000/user', {
 				headers: {Authorization: `Bearer ${token}`},
 			})
 				.then(() => setIsAuthenticated(true))
@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({children}) => {
 
 	const login = async (email: string, password: string) => {
 		try {
-			const response = await axios.post('http://localhost:8000/login', {email, password});
+			const response = await axios.post('http://backend:8000/login', {email, password});
 			localStorage.setItem('token', response.data.token);
 			setIsAuthenticated(true);
 		} catch (error) {
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({children}) => {
 	};
 
 	const logout = () => {
-		axios.post('http://localhost:8000/logout', {}, {
+		axios.post('http://backend:8000/logout', {}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
 		}).then(() => {
 			localStorage.removeItem('token');

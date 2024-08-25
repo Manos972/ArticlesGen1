@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {Alert} from 'react-bootstrap';
-import useAuth from '../Hook/useAuth';
 import Breadcrumbs from "../Articles/Breadcrumbs";
 
 const breadcrumbsLinks = [
@@ -19,7 +18,7 @@ const Login: React.FC = () => {
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
-			const response = await axios.post('http://localhost:8000/login', {email, password});
+			const response = await axios.post('http://backend:8000/login', {email, password});
 			localStorage.setItem('token', response.data.token);
 			setSuccess('Successfully logged in!');
 			setTimeout(() => navigate('/'), 2000); // Redirect after 2 seconds
